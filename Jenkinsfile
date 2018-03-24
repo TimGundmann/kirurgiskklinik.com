@@ -16,5 +16,8 @@ node {
    stage('Results') {
    }
    stage('Docker Deploy') {
+      sh "docker-compose stop"
+      sh "docker-compose build"
+      sh "docker-compose up -d"     
    }
 }
