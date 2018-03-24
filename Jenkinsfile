@@ -5,11 +5,10 @@ node {
    stage("version update") {
    }
    stage('Build') {
-     sh "w"
-     sh "ps -aux | grep Xvfb"
-     sh "export DISPLAY=:1"
      sh "npm install"
      wrap([$class: 'Xvfb', displayName: 1]) {
+      sh "ps -aux | grep Xvfb"
+      sh "export DISPLAY=:1"
       sh "ng test --watch false"
      }
      sh "ng build --prod -aot"
