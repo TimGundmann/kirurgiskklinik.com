@@ -9,7 +9,9 @@ node {
      sh "ps -aux | grep Xvfb"
      sh "export DISPLAY=:1"
      sh "npm install"
-     sh "ng test --watch false"
+     wrap([$class: 'Xvfb']) {
+      sh "ng test --watch false"
+     }
      sh "ng build --prod -aot"
    }
    stage('Results') {
