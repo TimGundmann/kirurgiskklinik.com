@@ -5,7 +5,7 @@ import { kikRoutes } from './kik.routes';
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(kikRoutes)
+    RouterModule.forRoot(kikRoutes, {useHash: true})
   ],
   declarations: [],
   exports: [ RouterModule ]
