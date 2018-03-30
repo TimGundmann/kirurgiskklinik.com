@@ -5,3 +5,4 @@ services:
     build: .
     ports:
      - "8888:80"
+    image: kirurgiskklinik.com
