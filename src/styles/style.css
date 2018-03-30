@@ -549,3 +549,6 @@ footer ul li a:hover{ color:#1dd2c8;}
 
 .feedbackPanel {list-style-type: none; line-height:42px; font-size: 20px; color:#fff; text-shadow:0 1px 1px rgba(-255,-255,-255,0.3); font-weight: bolder; margin-left: -40px;}
 
+a {
+	cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
+import { KikComponent } from './kik.component';
 import { Directive } from '@angular/core';
 
 @Directive( {
@@ -7,17 +7,17 @@ import { Directive } from '@angular/core';
 })
 class MockMainDirective { }
 
-describe('AppComponent', () => {
+describe('KikComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent,
+        KikComponent,
         MockMainDirective
       ],
     }).compileComponents();
   }));
   it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
+    const fixture = TestBed.createComponent(KikComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   }));

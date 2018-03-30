@@ -3,73 +3,55 @@ $(function(){
 });
 
 function oneSecondFunction() {
-	$( '#nav-arrows' ).children( ':last' ).click();
+	slitslider  = $( '#slider' ).slitslider();
+	if (slitslider) {
+		slitslider.next();
+	}
 }
 
-$(function() {
+function loadPageSlider() {
 			
-				var Page = (function() {
+	var Page = (function() {
 
-					var $navArrows = $( '#nav-arrows' ),
-						$nav = $( '#nav-dots > span' ),
-						slitslider = $( '#slider' ).slitslider( {
-							onBeforeChange : function( slide, pos ) {
+		var $navButtons = $('.navbar-nav'),
+		slitslider  = $( '#slider' ).slitslider();
 
-								$nav.removeClass( 'nav-dot-current' );
-								$nav.eq( pos ).addClass( 'nav-dot-current' );
+			init = function() {
 
-							}
-						} ),
+				initEvents();
+				
+			},
+			initEvents = function() {
 
-						init = function() {
+				$navButtons.each(function() {
+					$( this ).on( 'click', function( event ) {
+						if (slitslider) {
+							slitslider.destroy();
+						}
+						slitslider  = $( '#slider' ).slitslider();
+						if (slitslider) {						
+							slitslider.play();
+						}
+						return false;
+					
+					} );
+					
+				})
+				if (slitslider) {
+					slitslider.play();
+				}
 
-							initEvents();
-							
-						},
-						initEvents = function() {
+			};
 
-							// add navigation events
-							$navArrows.children( ':last' ).on( 'click', function() {
+			return { init : init };
 
-								slitslider.next();
-								return false;
+	})();
 
-							} );
+	Page.init();
 
-							$navArrows.children( ':first' ).on( 'click', function() {
-								
-								slitslider.previous();
-								return false;
 
-							} );
+};
 
-							$nav.each( function( i ) {
-							
-								$( this ).on( 'click', function( event ) {
-									
-									var $dot = $( this );
-									
-									if( !slitslider.isActive() ) {
-
-										$nav.removeClass( 'nav-dot-current' );
-										$dot.addClass( 'nav-dot-current' );
-									
-									}
-									
-									slitslider.jump( i + 1 );
-									return false;
-								
-								} );
-								
-							} );
-
-						};
-
-						return { init : init };
-
-				})();
-
-				Page.init();
-
-			
-			});
+$(function () {
+	$(window).load(loadPageSlider);
+});

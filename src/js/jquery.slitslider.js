@@ -22,37 +22,41 @@
 	* Copyright 2011 @louis_remi
 	* Licensed under the MIT license.
 	*/
-	var $event = $.event,
-	$special,
-	resizeTimeout;
+	(function($) {
 
-	$special = $event.special.debouncedresize = {
-		setup: function() {
-			$( this ).on( "resize", $special.handler );
-		},
-		teardown: function() {
-			$( this ).off( "resize", $special.handler );
-		},
-		handler: function( event, execAsap ) {
-			// Save the context
-			var context = this,
-				args = arguments,
-				dispatch = function() {
-					// set correct event type
-					event.type = "debouncedresize";
-					$event.dispatch.apply( context, args );
-				};
-
-			if ( resizeTimeout ) {
-				clearTimeout( resizeTimeout );
-			}
-
-			execAsap ?
-				dispatch() :
-				resizeTimeout = setTimeout( dispatch, $special.threshold );
-		},
-		threshold: 20
-	};
+		var $event = $.event,
+			$special,
+			resizeTimeout;
+		
+		$special = $event.special.debouncedresize = {
+			setup: function() {
+				$( this ).on( "resize", $special.handler );
+			},
+			teardown: function() {
+				$( this ).off( "resize", $special.handler );
+			},
+			handler: function( event, execAsap ) {
+				// Save the context
+				var context = this,
+					args = arguments,
+					dispatch = function() {
+						// set correct event type
+						event.type = "debouncedresize";
+						$event.dispatch.apply( context, args );
+					};
+		
+				if ( resizeTimeout ) {
+					clearTimeout( resizeTimeout );
+				}
+		
+				execAsap ?
+					dispatch() :
+					resizeTimeout = setTimeout( dispatch, $special.threshold );
+			},
+			threshold: 150
+		};
+		
+		});
 
 	// global
 	var $window = $( window ),
@@ -141,7 +145,7 @@
 		},
 		_layout : function() {
 			
-			this.$slideWrapper = $( '<div class="sl-slides-wrapper" />' );
+			this.$slideWrapper = $( '<div class="sl-slides-wrapper"></div>' );
 			
 			// wrap the slides
 			this.$slides.wrapAll( this.$slideWrapper ).each( function( i ) {
@@ -152,8 +156,8 @@
 					
 				$slide.addClass( 'sl-slide-' + orientation )
 					  .children()
-					  .wrapAll( '<div class="sl-content-wrapper" />' )
-					  .wrapAll( '<div class="sl-content" />' );
+					  .wrapAll( '<div class="sl-content-wrapper"></div>' )
+					  .wrapAll( '<div class="sl-content"></div>' );
 			
 			} );
 			
@@ -257,7 +261,7 @@
 			// add the 2 slices and animate them
 			$movingSlide.css( 'z-index', this.slidesCount )
 						.find( 'div.sl-content-wrapper' )
-						.wrap( $( '<div class="sl-content-slice" />' ).css( transitionProp ) )
+						.wrap( $( '<div class="sl-content-slice"></div>' ).css( transitionProp ) )
 						.parent()
 						.cond(
 							dir === 'prev', 
@@ -523,8 +527,8 @@
 
 				$slide.hide().addClass( 'sl-slide-' + orientation )
 					  .children()
-					  .wrapAll( '<div class="sl-content-wrapper" />' )
-					  .wrapAll( '<div class="sl-content" />' )
+					  .wrapAll( '<div class="sl-content-wrapper"></div>' )
+					  .wrapAll( '<div class="sl-content"></div>' )
 					  .end()
 					  .appendTo( self.$el.find( 'div.sl-slides-wrapper' ) );
 
